@@ -1,7 +1,8 @@
 <?php
 include("config.php");
 include("reactions.php");
-$getReactions = Reactions::getReactions();
+$video_id = 1;
+$getReactions = Reactions::getReactions($video_id);
 // $sql = "DELETE FROM reactions";
 // if ($con->query($sql) === TRUE) {
 //     echo "<p style='color: green;'>Alle reacties zijn succesvol verwijderd.</p>";
@@ -18,6 +19,7 @@ if (!empty($_GET)) {
         'name' => $_GET['name'],
         'email' => $_GET['email'],
         'message' => $_GET['message'],
+        'video_id'=> $_GET['video_id'],
     ];
 
     $setReaction = Reactions::setReaction($postArray);
@@ -51,11 +53,12 @@ if (!empty($_GET)) {
         <input type="text" id="email" name="email" value="">
         <label for="Comment">Comment:</label>
         <textarea id="message" name="message" value=""></textarea>
+        <input type="hidden" name="video_id"value="1">
         <input type="submit" value="submit">
     </form>
     <?php
-
-    $gevondenReactions = Reactions::getReactions();
+    $video_id = 1;
+    $gevondenReactions = Reactions::getReactions($video_id);
 
     for ($i = 0; $i < count($gevondenReactions); $i++) {
         $reaction = $gevondenReactions[$i];
