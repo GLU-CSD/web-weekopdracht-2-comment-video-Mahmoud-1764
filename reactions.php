@@ -47,18 +47,19 @@ class Reactions
     static function getReactions(){
         global $con;
         $array = [];
-        $grqry = $con->prepare("SELECT id,name,email FROM reactions;");
+        $grqry = $con->prepare("SELECT id,name,email,message FROM reactions;");
         if($grqry === false) {
             prettyDump( mysqli_error($con) );
         } else{
-            $grqry->bind_result($id,$name,$email);
+            $grqry->bind_result($id,$name,$email,$message);
             if($grqry->execute()){
                 $grqry->store_result();
                 while($grqry->fetch()){
                     $array[] = [
                         'id' => $id,
                         'name' => $name,
-                        'email'=> $email
+                        'email'=> $email,
+                        'message'=> $message
                     ];
                 }
             }
